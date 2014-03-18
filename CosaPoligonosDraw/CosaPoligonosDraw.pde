@@ -39,6 +39,13 @@ static int DISPARO = 0;
 static int SUBIENDO = 1;
 static int SALVAPANTALLAS = 2;
 
+float [] volumeValues;
+int counterVV=0;
+static int SAMPLES=4;
+static float UMBRAL=0.1;
+boolean calladoAhora=false;
+float currentVol=0;
+
 String[] ordenPaneles = {
   "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2"
 };
@@ -58,6 +65,7 @@ public void setup() {
   size(1024, 768, P3D);
   loadData();
   oscP5 = new OscP5(this, 12000);
+  volumeValues=new float[SAMPLES];
 }
 
 public void draw() {
@@ -78,6 +86,9 @@ public void draw() {
         }
       }
   }
+  
+  
+  
 }
 
 void update() {
@@ -88,6 +99,20 @@ void update() {
         modoFuncionamiento = DISPARO;
     }
   }
+  println(counterVV);
+  if(counterVV==0){
+     currentVol=sumVolume();         
+     if( currentVol<UMBRAL){ 
+       if(calladoAhora==false){
+        //Aquí está el cambio de estado   
+        modoFuncionamiento = DISPARO    ;    
+       }       
+        calladoAhora=true;
+     }
+     else {
+       calladoAhora=false;
+     }
+   }
 }
 
 public void loadData() {
@@ -163,5 +188,16 @@ void oscEvent(OscMessage theOscMessage) {
   print("### received an osc message.");
   pitch = theOscMessage.get(0).floatValue();  
   volume = theOscMessage.get(1).floatValue();
+  volumeValues[counterVV]=volume;
+  counterVV++; if(counterVV>=SAMPLES) counterVV=0;
   println(" Received: "+pitch+", " + volume);
+}
+
+
+float sumVolume(){
+  float sumVol=0;
+  for (int i=0; i<volumeValues.length; i++){
+    sumVol+=volumeValues[i];
+  }
+  return sumVol/SAMPLES;
 }
