@@ -1,0 +1,147 @@
+import processing.opengl.*;
+
+import javax.swing.JFileChooser;
+
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.*;
+
+import oscP5.*;
+import netP5.*;
+
+//PitchDetectorAutocorrelation PD; //Autocorrelation
+//PitchDetectorHPS PD; //Harmonic Product Spectrum -not working yet-
+PitchDetectorFFT PD; // Naive
+AudioSource AS;
+Minim minim;
+//Some arrays just to smooth output frequencies with a simple median.
+float []freq_buffer = new float[10];
+float []sorted;
+int freq_buffer_index = 0;
+
+long last_t = -1;
+float avg_level = 0;
+float last_level = 0;
+String filename;
+float begin_playing_time = -1;
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+void setup()
+{
+  size(600, 400);
+  frameRate(60);
+    smooth();
+  fill(0); 
+  minim = new Minim(this);
+  minim.debugOn();
+  
+  AS = new AudioSource(minim);
+ 
+  /*
+  // Choose .wav file to analyze
+  boolean ok = false;
+  while (!ok) {
+    JFileChooser chooser = new JFileChooser();
+    chooser.setFileFilter(chooser.getAcceptAllFileFilter());
+    int returnVal = chooser.showOpenDialog(null);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+    filename = chooser.getSelectedFile().getPath();
+      AS.OpenAudioFile(chooser.getSelectedFile().getPath(), 5, 512); //1024 for AMDF
+      ok = true;
+    }
+  }
+  */
+
+  // Comment the previous block and uncomment the next line for microphone input
+  AS.OpenMicrophone();
+
+   PD = new PitchDetectorFFT();
+  PD.ConfigureFFT(2048, AS.GetSampleRate());
+   //PD = new PitchDetectorAutocorrelation();  //This one uses Autocorrelation
+  //PD = new PitchDetectorHPS(); //This one uses Harmonit Product Spectrum -not working yet-
+  PD.SetSampleRate(AS.GetSampleRate());
+  AS.SetListener(PD);
+
+  //rectMode(CORNERS);
+ /* background(0);
+  fill(0);
+  stroke(255);*/
+   oscP5 = new OscP5(this,12000);
+  myRemoteLocation = new NetAddress("192.168.1.207",12000);
+  
+}
+
+
+void draw()
+{
+   
+   
+   
+   //pushMatrix();
+   //translate(0,600);
+  if (begin_playing_time == -1)
+  begin_playing_time = millis();
+
+  float f = 0;
+  float level = AS.GetLevel();
+  long t = PD.GetTime();
+  if (t == last_t) return;
+  last_t = t;
+  int xpos = (int)t % width;
+  if (xpos >= width-1) {
+    // rect(0,0,width,height);
+  }
+
+  f = PD.GetFrequency();
+
+  /*freq_buffer[freq_buffer_index] = f;
+  freq_buffer_index++;
+  freq_buffer_index = freq_buffer_index % freq_buffer.length;
+  sorted = sort(freq_buffer);
+
+  f = sorted[5];*/
+
+pushMatrix();
+  stroke(level * 255.0 * 10.0);
+  line(xpos, height, xpos, height - f / 5.0f);
+  popMatrix();
+  avg_level = level;
+  last_level = f;
+  
+  /*if(level>0.12){  
+
+  }*/
+  
+ // popMatrix();
+ 
+ if(frameCount%4==0){
+    OscMessage myMessage = new OscMessage("/sonido");  
+    myMessage.add(f); /* add an int to the osc message */
+    myMessage.add(level); /* add a float to the osc message */
+    fill(255);
+    rect(50,50,200,200);
+    oscP5.send(myMessage, myRemoteLocation); 
+    fill(0,0,0);
+    text ("frecuency: " +f, 100,100);
+    text ("Level: " + level, 100,130);
+    text ("frate: " + frameRate, 100,180);
+    
+ }
+ 
+}
+
+
+
+void stop()
+{
+  AS.Close();
+
+  minim.stop();
+
+  println("Se acabo");
+
+  super.stop();
+}
+
+
