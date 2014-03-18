@@ -27,6 +27,12 @@ String filename;
 float begin_playing_time = -1;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
+float [] volumeValues;
+int counterVV=0;
+static int SAMPLES=4;
+static int UMBRAL=4;
+boolean calladoAhora=false;
+float currentVol=0;
 void setup()
 {
   size(600, 400);
@@ -35,7 +41,7 @@ void setup()
   fill(0); 
   minim = new Minim(this);
   minim.debugOn();
-  
+  volumeValues=new float[SAMPLES];
   AS = new AudioSource(minim);
  
   /*
@@ -75,14 +81,8 @@ void setup()
 
 void draw()
 {
-   
-   
-   
-   //pushMatrix();
-   //translate(0,600);
   if (begin_playing_time == -1)
   begin_playing_time = millis();
-
   float f = 0;
   float level = AS.GetLevel();
   long t = PD.GetTime();
@@ -95,12 +95,6 @@ void draw()
 
   f = PD.GetFrequency();
 
-  /*freq_buffer[freq_buffer_index] = f;
-  freq_buffer_index++;
-  freq_buffer_index = freq_buffer_index % freq_buffer.length;
-  sorted = sort(freq_buffer);
-
-  f = sorted[5];*/
 
 pushMatrix();
   stroke(level * 255.0 * 10.0);
@@ -108,29 +102,57 @@ pushMatrix();
   popMatrix();
   avg_level = level;
   last_level = f;
-  
-  /*if(level>0.12){  
 
-  }*/
   
- // popMatrix();
  
- if(frameCount%4==0){
+ if(frameCount%3==0){
     OscMessage myMessage = new OscMessage("/sonido");  
     myMessage.add(f); /* add an int to the osc message */
     myMessage.add(level); /* add a float to the osc message */
+    
+    volumeValues[counterVV]=level;
+    counterVV++; if(counterVV>=SAMPLES) counterVV=0;
+    
     fill(255);
     rect(50,50,200,200);
     oscP5.send(myMessage, myRemoteLocation); 
     fill(0,0,0);
     text ("frecuency: " +f, 100,100);
     text ("Level: " + level, 100,130);
-    text ("frate: " + frameRate, 100,180);
-    
+    text ("frate: " + frameRate, 100,180);    
  }
+ 
+   if(counterVV==0){
+     currentVol=sumVolume();         
+     if( currentVol<UMBRAL){ 
+       if(calladoAhora==false){
+        //Aquí está el cambio de estado
+         fill(255,0,0);
+          rect(50,50,200,200);         
+       }       
+        calladoAhora=true;
+        text ("silencio! ", 100,150);
+     }
+     else {
+       calladoAhora=false;
+     }
+   }
+   
+   
+   text ("currentVol: " + currentVol, 100,200); 
  
 }
 
+float sumVolume(){
+  float sumVol=0;
+  for (int i=0; i<volumeValues.length; i++){
+    sumVol+=volumeValues[i];
+    println(volumeValues[i]);
+  }
+  println("");
+  println(sumVol);
+  return sumVol/SAMPLES;
+}
 
 
 void stop()
