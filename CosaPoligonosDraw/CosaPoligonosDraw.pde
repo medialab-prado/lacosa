@@ -51,6 +51,7 @@ boolean acabaDeCallarse=false;
 String[] ordenPaneles = {
   "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2"
 };
+ArrayList poligonosOrd = new ArrayList();
 int panelActual = 0;
 
 OscP5 oscP5;
@@ -62,63 +63,85 @@ int mode = 0;
 float volume = 0;
 float pitch = 0;
 int modoFuncionamiento = 1;
+ArrayList particles = new ArrayList();
+
 public void setup() {
   size(1024, 768, P3D);
   loadData();
+  for (int i= 0;i<ordenPaneles.length;i++) {
+    for (Polygon p : polygons) {
+      if ( p.name.equals(ordenPaneles[i])) {
+        poligonosOrd.add(p);
+      }
+    }
+  }
   
-  oscP5 = new OscP5(this, 12000);
+  
+    oscP5 = new OscP5(this, 12000);
   volumeValues=new float[SAMPLES];
   cp5 = new ControlP5(this);
-  
+
   // add a horizontal sliders, the value of this slider will be linked
   // to variable 'sliderValue' 
   cp5.addSlider("UMBRAL")
-     .setPosition(100,50).setSize(300,30)
-     .setRange(0,0.3).setValue(0.03);
+    .setPosition(100, 50).setSize(300, 30)
+      .setRange(0, 0.3).setValue(0.03);
 }
 
 public void draw() {
- //println(UMBRAL);
+  //println(UMBRAL);
   update();
-  
-  
-  
-  
+  background(20);
+
+
+
   if (modoFuncionamiento == DISPARO) {
     for (Polygon p : polygons) {
+      p.drawMode = 0;
       p.c = color( map(pitch, 20, 800, 0, 255), 200, map(volume, 0.0, 1.0, 0, 255));
-      p.draw(g);
+     // p.draw(g);
     }
   }
   else if (modoFuncionamiento == HABLANDO) {
     for (int i = 0; i< ordenPaneles.length;i++)
       for (Polygon p : polygons) {
-        if ( p.name.equals(ordenPaneles[i])){
-          p.c = color( 255,0,0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+        if ( p.name.equals(ordenPaneles[i])) {
+          p.drawMode = 2;
+          p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
           p.draw(g);
         }
       }
   }  
-  else if(modoFuncionamiento == SALVAPANTALLAS) {
-     for (Polygon p : polygons) {
+  else if (modoFuncionamiento == SALVAPANTALLAS) {
+    for (Polygon p : polygons) {
+      p.drawMode = 1;
       p.c = color( 200, 200, 200);
+     // p.draw(g);
+    }
+  }
+  ArrayList delpp = new ArrayList();
+  for(int i = 0;i<particles.size();i++){
+    Particle p = (Particle)particles.get(i);
+    if(!p.died){
       p.draw(g);
-    }   
+    }else{
+      delpp.add(p);
+    }
   }
+  particles.removeAll(delpp);
   
-  if(!calladoAhora){
-  stroke(255);
-  fill(255,255,0);
-  rect(10,10,volume*width,20);
-  fill(255,0,255);
-  rect(10,50,pitch,20);
-   fill(0,255,255);
-  rect(10,80,currentVol,20);
-  
+  if (!calladoAhora) {
+    stroke(255);
+    fill(255, 255, 0);
+    rect(10, 10, volume*width, 20);
+    fill(255, 0, 255);
+    rect(10, 50, pitch, 20);
+    fill(0, 255, 255);
+    rect(10, 80, currentVol, 20);
   }
-  
+
   fill(255);
-  text("modoFuncionamiento " + modoFuncionamiento,100,10);
+  text("modoFuncionamiento " + modoFuncionamiento, 100, 10);
 }
 
 boolean silencio = false;
@@ -127,49 +150,52 @@ int disparoPeriodMillis = 5000;
 
 
 void update() {
- 
+
   //println(counterVV);
   acabaDeCallarse = false;
-  boolean terminahablar = false;
-  if(counterVV==0){
-     currentVol=sumVolume();         
-     if( currentVol<UMBRAL){ 
-       if(calladoAhora==false){
+
+  boolean empiezahablar = false;
+  if (counterVV==0) {
+    currentVol=sumVolume();         
+    if ( currentVol<UMBRAL) { 
+      if (calladoAhora==false) {
         //Aquí está el cambio de estado  
-          acabaDeCallarse=true;
-       }       
-        calladoAhora=true;
-     }
-     else {
-       calladoAhora=false;
-     }
-   }
-   
-   if (modoFuncionamiento == HABLANDO) {
-      if(acabaDeCallarse == true){
-         modoFuncionamiento = DISPARO; 
-         acabaDeCallarse = false;
-         lastDisparoMillis = millis() + disparoPeriodMillis;
-       }
-   /*
-    if (frameCount % 60 == 0) {
-      panelActual = (panelActual + 1) % ordenPaneles.length;
-      if (panelActual == 0)
-        modoFuncionamiento = DISPARO;
+        acabaDeCallarse=true;
+      }       
+      calladoAhora=true;
     }
-    */
-  } else if (modoFuncionamiento == DISPARO) {
-    if(lastDisparoMillis < millis()){
+    else {
+      calladoAhora=false;
+    }
+  }
+
+  if (modoFuncionamiento == HABLANDO) {
+    if (acabaDeCallarse == true) {
+      modoFuncionamiento = DISPARO; 
+      Particle p = new Particle();
+      p.init( (Polygon)poligonosOrd.get(0),500);
+      particles.add(p);
+      acabaDeCallarse = false;
+      lastDisparoMillis = millis() + disparoPeriodMillis;
+    }
+    /*
+    if (frameCount % 60 == 0) {
+     panelActual = (panelActual + 1) % ordenPaneles.length;
+     if (panelActual == 0)
+     modoFuncionamiento = DISPARO;
+     }
+     */
+  } 
+  else if (modoFuncionamiento == DISPARO) {
+    if (lastDisparoMillis < millis()) {
       modoFuncionamiento = SALVAPANTALLAS;
     }
-  } else if(modoFuncionamiento == SALVAPANTALLAS) {
-    if(!calladoAhora){
+  } 
+  else if (modoFuncionamiento == SALVAPANTALLAS) {
+    if (!calladoAhora) {
       modoFuncionamiento = HABLANDO;
     }
   }
-  
-  
-
 }
 
 public void loadData() {
@@ -246,15 +272,17 @@ void oscEvent(OscMessage theOscMessage) {
   pitch = theOscMessage.get(0).floatValue();  
   volume = theOscMessage.get(1).floatValue();
   volumeValues[counterVV]=volume;
-  counterVV++; if(counterVV>=SAMPLES) counterVV=0;
+  counterVV++; 
+  if (counterVV>=SAMPLES) counterVV=0;
   //println(" Received: "+pitch+", " + volume);
 }
 
 
-float sumVolume(){
+float sumVolume() {
   float sumVol=0;
-  for (int i=0; i<volumeValues.length; i++){
+  for (int i=0; i<volumeValues.length; i++) {
     sumVol+=volumeValues[i];
   }
   return sumVol/SAMPLES;
 }
+
