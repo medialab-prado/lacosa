@@ -1,4 +1,3 @@
-// A Bubble class
 public class Polygon {
   int PLANO = 0;
   int CHIRIVITA = 1;
@@ -70,11 +69,11 @@ public class Polygon {
     else if ( drawMode == LLENADO_STOP) {
       pg.background(0 );
       pg.fill(c);
-      //llenadoCantidad+=0.01f;
+      llenadoCantidad+=0.01f;
       
-      //if(llenadoCantidad > 1){
-      //   llenadoCantidad = 1; 
-     // }
+      if(llenadoCantidad > 1){
+         llenadoCantidad = 1; 
+      }
       
       pg.rect(0, 0, pg.width, pg.height*llenadoCantidad);
     }
@@ -97,4 +96,4 @@ public class Polygon {
     drawMode = i;
   }
 }
-  
+	

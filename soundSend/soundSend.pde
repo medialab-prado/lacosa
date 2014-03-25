@@ -106,7 +106,7 @@ void draw()
   fill(255); 
   rect(50,50,300,200);
  
- if(frameCount%3==0){
+ //if(frameCount%3==0){
     OscMessage myMessage = new OscMessage("/sonido");  
     myMessage.add(f); /* add an int to the osc message */
     myMessage.add(level); /* add a float to the osc message */    
@@ -115,7 +115,7 @@ void draw()
     fill(255);    
     oscP5.send(myMessage, myRemoteLocation);     
 
-  }  
+  //}  
     if(calladoAhora==false){
       fill(0,0,0);
       text ("frecuency: " +f, 100,100);

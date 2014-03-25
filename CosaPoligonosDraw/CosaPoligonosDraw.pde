@@ -66,6 +66,8 @@ float pitch = 0;
 int modoFuncionamiento = 1;
 ArrayList particles = new ArrayList();
 
+float boometro = 0;
+
 public void setup() {
   size(1024, 768, P3D);
   loadData();
@@ -76,9 +78,8 @@ public void setup() {
       }
     }
   }
-  
-  
-    oscP5 = new OscP5(this, 12000);
+
+  oscP5 = new OscP5(this, 12000);
   volumeValues=new float[SAMPLES];
   cp5 = new ControlP5(this);
 
@@ -94,47 +95,67 @@ public void draw() {
   update();
   background(20);
 
-
-
   if (modoFuncionamiento == DISPARO) {
     for (Polygon p : polygons) {
       //p.drawMode = 0;
       //p.c = color( map(pitch, 20, 800, 0, 255), 200, map(volume, 0.0, 1.0, 0, 255));
-     // p.draw(g);
+      // p.draw(g);
     }
   }
   else if (modoFuncionamiento == HABLANDO) {
     /*for (int i = 0; i< ordenPaneles.length;i++)
-      for (Polygon p : polygons) {
-        if ( p.name.equals(ordenPaneles[i])) {
-          p.drawMode = 2;
-          p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
-          p.draw(g);
-        }
-      }*/
-      Polygon p = (Polygon)poligonosOrd.get(0);
-      p.drawMode = 2;
-      p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
-      p.draw(g);
+     for (Polygon p : polygons) {
+     if ( p.name.equals(ordenPaneles[i])) {
+     p.drawMode = 2;
+     p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+     p.draw(g);
+     }
+     }*/
+
+    //boometro += (boometro - volume) * 0.8;
+    boometro = volume * 1.3;
+    println(boometro);
+
+    Polygon p = (Polygon)poligonosOrd.get(0);
+    p.drawMode = 3;
+    p.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+    p.llenadoCantidad = boometro * 3.33;
+    p.draw(g);
+
+    if (boometro > 0.33) {
+      Polygon pp = (Polygon)poligonosOrd.get(1);
+      pp.drawMode = 3;
+      pp.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+      pp.llenadoCantidad = (boometro-0.33) * 3.33;
+      pp.draw(g);
+    }
+    if (boometro > 0.66) {
+      Polygon pp = (Polygon)poligonosOrd.get(2);
+      pp.drawMode = 3;
+      pp.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+      pp.llenadoCantidad = (boometro-0.66) * 3.33;
+      pp.draw(g);
+    }
   }  
   else if (modoFuncionamiento == SALVAPANTALLAS) {
     for (Polygon p : polygons) {
       //p.drawMode = 1;
       //p.c = color( 200, 200, 200);
-     // p.draw(g);
+      // p.draw(g);
     }
   }
   ArrayList delpp = new ArrayList();
-  for(int i = 0;i<particles.size();i++){
+  for (int i = 0;i<particles.size();i++) {
     Particle p = (Particle)particles.get(i);
-    if(!p.died){
+    if (!p.died) {
       p.draw(g);
-    }else{
+    }
+    else {
       delpp.add(p);
     }
   }
   particles.removeAll(delpp);
-  
+
   if (!calladoAhora) {
     stroke(255);
     fill(255, 255, 0);
@@ -145,17 +166,17 @@ public void draw() {
     rect(10, 80, currentVol, 20);
   }
 
-    fill(0,255,255);
-    //Paredes de primera planta
-    rect(0,190,800,150);
-    // Techo primera planta
-    rect(731, 322, 100, 100);
-    
-// Segunda planta
-    fill(255,255,0);    
-    rect(783, 203, 500,150);
-    rect(0, 342, 500,150);
-    rect(0, 442, 500,150);
+  fill(0, 255, 255);
+  //Paredes de primera planta
+  rect(0, 190, 800, 150);
+  // Techo primera planta
+  rect(731, 322, 100, 100);
+
+  // Segunda planta
+  fill(255, 255, 0);    
+  rect(783, 203, 500, 150);
+  rect(0, 342, 500, 150);
+  rect(0, 442, 500, 150);
 
   fill(255);
   text("modoFuncionamiento " + modoFuncionamiento, 100, 10);
@@ -164,7 +185,7 @@ public void draw() {
 boolean silencio = false;
 int lastDisparoMillis = 0;
 int disparoPeriodMillis = 1000;
- 
+
 
 void update() {
 
@@ -190,12 +211,13 @@ void update() {
     if (acabaDeCallarse == true) {
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init(2500, color(255-currentColor,currentColor,0));
+      p.init(1000, color(255-currentColor, currentColor, 0));
       particles.add(p);
       acabaDeCallarse = false;
       lastDisparoMillis = millis() + disparoPeriodMillis;
-    }else{
-      currentColor++; 
+    }
+    else {
+      currentColor++;
     }
     /*
     if (frameCount % 60 == 0) {
@@ -210,9 +232,12 @@ void update() {
       modoFuncionamiento = SALVAPANTALLAS;
     }
   } 
+
   else if (modoFuncionamiento == SALVAPANTALLAS) {
     if (!calladoAhora) {
       modoFuncionamiento = HABLANDO;
+      Polygon p = (Polygon)poligonosOrd.get(0);
+      p.llenadoCantidad = 0;
     }
   }
 }
