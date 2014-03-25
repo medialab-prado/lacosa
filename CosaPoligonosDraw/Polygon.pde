@@ -48,7 +48,7 @@ public class Polygon {
 
 
   public void draw(PGraphics canvas) {
-     pg.beginDraw(); 
+    pg.beginDraw(); 
     if ( drawMode == CHIRIVITA) {
       pg.background(0 );
       pg.colorMode(HSB);
@@ -58,15 +58,15 @@ public class Polygon {
         pg.rect(random(pg.width), random(pg.height), 8, 8);
     }
     else if (drawMode == PLANO) {
-      pg.background(c);      
+      pg.background(c);
     }
-    else if( drawMode == LLENADO){
+    else if ( drawMode == LLENADO) {
       pg.background(0 );
       pg.fill(c);
-      pg.rect(0, pg.height - frameCount % pg.height, pg.width,  frameCount % pg.height);
+      pg.rect(0, pg.height - frameCount % pg.height, pg.width, frameCount % pg.height);
     }
     pg.endDraw();
-    
+
     canvas.noStroke();
     canvas.beginShape();
     //canvas.fill(c);
@@ -84,3 +84,4 @@ public class Polygon {
     drawMode = i;
   }
 }
+

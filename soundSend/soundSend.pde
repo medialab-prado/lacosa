@@ -138,7 +138,7 @@ void draw()
      }
      else {
         text ("hablando! ", 100,150);
-        println("hablando");
+        //println("hablando");
        calladoAhora=false;
      }
    }
@@ -153,7 +153,7 @@ float sumVolume(){
     //println(volumeValues[i]);
   }
   //println("");
-  println(sumVol/SAMPLES);
+  //println(sumVol/SAMPLES);
   return sumVol/SAMPLES;
 }
 

@@ -48,6 +48,7 @@ float UMBRAL=0.1;
 boolean calladoAhora=false;
 float currentVol=0;
 boolean acabaDeCallarse=false;
+int currentColor = 0;
 String[] ordenPaneles = {
   "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2"
 };
@@ -97,25 +98,29 @@ public void draw() {
 
   if (modoFuncionamiento == DISPARO) {
     for (Polygon p : polygons) {
-      p.drawMode = 0;
-      p.c = color( map(pitch, 20, 800, 0, 255), 200, map(volume, 0.0, 1.0, 0, 255));
+      //p.drawMode = 0;
+      //p.c = color( map(pitch, 20, 800, 0, 255), 200, map(volume, 0.0, 1.0, 0, 255));
      // p.draw(g);
     }
   }
   else if (modoFuncionamiento == HABLANDO) {
-    for (int i = 0; i< ordenPaneles.length;i++)
+    /*for (int i = 0; i< ordenPaneles.length;i++)
       for (Polygon p : polygons) {
         if ( p.name.equals(ordenPaneles[i])) {
           p.drawMode = 2;
           p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
           p.draw(g);
         }
-      }
+      }*/
+      Polygon p = (Polygon)poligonosOrd.get(0);
+      p.drawMode = 2;
+      p.c = color( 255, 0, 0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+      p.draw(g);
   }  
   else if (modoFuncionamiento == SALVAPANTALLAS) {
     for (Polygon p : polygons) {
-      p.drawMode = 1;
-      p.c = color( 200, 200, 200);
+      //p.drawMode = 1;
+      //p.c = color( 200, 200, 200);
      // p.draw(g);
     }
   }
@@ -146,7 +151,7 @@ public void draw() {
 
 boolean silencio = false;
 int lastDisparoMillis = 0;
-int disparoPeriodMillis = 5000;
+int disparoPeriodMillis = 1000;
  
 
 void update() {
@@ -173,10 +178,12 @@ void update() {
     if (acabaDeCallarse == true) {
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init(500);
+      p.init(2500, color(255-currentColor,currentColor,0));
       particles.add(p);
       acabaDeCallarse = false;
       lastDisparoMillis = millis() + disparoPeriodMillis;
+    }else{
+      currentColor++; 
     }
     /*
     if (frameCount % 60 == 0) {

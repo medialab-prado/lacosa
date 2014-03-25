@@ -6,11 +6,12 @@ public class Particle {
   int vel = 500;
   int current = 0;
 
-  public void init( int vel) {
+  public void init( int vel, color c) {
     this.vel = vel;
-    
     nextChange = millis() + vel;
     p =  (Polygon) poligonosOrd.get(current);
+    p.drawMode = (int)random(2);
+    p.c = c;
   }
 
 
@@ -25,11 +26,16 @@ public class Particle {
   }
 
   private void nextPolygon() {
+    Polygon lastP = (Polygon) poligonosOrd.get(current);
     current ++;
-    if(current < poligonosOrd.size()-1)
+    
+    if(current < poligonosOrd.size()-1){
        p =  (Polygon) poligonosOrd.get(current);
-   else
-   died = true;
+       p.drawMode = lastP.drawMode;
+       p.c = lastP.c;
+       
+    }else
+     died = true;
   }
 }
 
