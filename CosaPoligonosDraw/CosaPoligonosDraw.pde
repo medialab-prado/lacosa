@@ -173,7 +173,7 @@ void update() {
     if (acabaDeCallarse == true) {
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init( (Polygon)poligonosOrd.get(0),500);
+      p.init(500);
       particles.add(p);
       acabaDeCallarse = false;
       lastDisparoMillis = millis() + disparoPeriodMillis;

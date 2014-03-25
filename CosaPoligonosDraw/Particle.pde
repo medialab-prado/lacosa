@@ -8,7 +8,7 @@ public class Particle {
 
   public void init( int vel) {
     this.vel = vel;
-    this.p = ;
+    
     nextChange = millis() + vel;
     p =  (Polygon) poligonosOrd.get(current);
   }
