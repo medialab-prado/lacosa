@@ -2,7 +2,9 @@
 import java.util.List;
 import oscP5.*;
 import netP5.*;
+import controlP5.*;
 
+ControlP5 cp5;
 /**
  * Loading XML Data
  * by Daniel Shiffman.  
@@ -42,7 +44,7 @@ static int SALVAPANTALLAS = 2;
 float [] volumeValues;
 int counterVV=0;
 static int SAMPLES=4;
-static float UMBRAL=0.1;
+float UMBRAL=0.1;
 boolean calladoAhora=false;
 float currentVol=0;
 
@@ -60,12 +62,19 @@ int mode = 0;
 float volume = 0;
 float pitch = 0;
 int modoFuncionamiento = 1;
-
 public void setup() {
   size(1024, 768, P3D);
   loadData();
+  
   oscP5 = new OscP5(this, 12000);
   volumeValues=new float[SAMPLES];
+  cp5 = new ControlP5(this);
+  
+  // add a horizontal sliders, the value of this slider will be linked
+  // to variable 'sliderValue' 
+  cp5.addSlider("umbral")
+     .setPosition(100,50).setSize(300,30)
+     .setRange(0,0.3).setValue(0.03);
 }
 
 public void draw() {
@@ -85,10 +94,8 @@ public void draw() {
           p.draw(g);
         }
       }
-  }
-  
-  
-  
+  }  
+
 }
 
 void update() {
@@ -99,12 +106,12 @@ void update() {
         modoFuncionamiento = DISPARO;
     }
   }
-  println(counterVV);
+  //println(counterVV);
   if(counterVV==0){
      currentVol=sumVolume();         
      if( currentVol<UMBRAL){ 
        if(calladoAhora==false){
-        //Aquí está el cambio de estado   
+        //Aquí está el cambio de estado  
         modoFuncionamiento = DISPARO    ;    
        }       
         calladoAhora=true;

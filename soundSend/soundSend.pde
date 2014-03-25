@@ -73,8 +73,8 @@ void setup()
  /* background(0);
   fill(0);
   stroke(255);*/
-  oscP5 = new OscP5(this,12000);
-  myRemoteLocation = new NetAddress("192.168.1.207",12000);
+  oscP5 = new OscP5(this,12001);
+  myRemoteLocation = new NetAddress("127.0.0.1",12000);
   
 }
 
@@ -103,7 +103,8 @@ void draw()
   avg_level = level;
   last_level = f;
 
-  
+  fill(255); 
+  rect(50,50,300,200);
  
  if(frameCount%3==0){
     OscMessage myMessage = new OscMessage("/sonido");  
@@ -113,13 +114,14 @@ void draw()
     counterVV++; if(counterVV>=SAMPLES) counterVV=0;    
     fill(255);    
     oscP5.send(myMessage, myRemoteLocation);     
-    if(calladoAhora==true){
+
+  }  
+    if(calladoAhora==false){
+      fill(0,0,0);
       text ("frecuency: " +f, 100,100);
       text ("Level: " + level, 100,130);
     }
-  }  
-   fill(255); 
-   rect(50,50,300,200);
+
    fill(0,0,0);
    text ("frate: " + frameRate, 100,180);  
  
