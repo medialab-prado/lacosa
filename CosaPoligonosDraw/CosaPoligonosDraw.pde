@@ -147,7 +147,7 @@ public void draw() {
 boolean silencio = false;
 int lastDisparoMillis = 0;
 int disparoPeriodMillis = 5000;
-
+ 
 
 void update() {
 
