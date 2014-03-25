@@ -145,6 +145,18 @@ public void draw() {
     rect(10, 80, currentVol, 20);
   }
 
+    fill(0,255,255);
+    //Paredes de primera planta
+    rect(0,190,800,150);
+    // Techo primera planta
+    rect(731, 322, 100, 100);
+    
+// Segunda planta
+    fill(255,255,0);    
+    rect(783, 203, 500,150);
+    rect(0, 342, 500,150);
+    rect(0, 442, 500,150);
+
   fill(255);
   text("modoFuncionamiento " + modoFuncionamiento, 100, 10);
 }
