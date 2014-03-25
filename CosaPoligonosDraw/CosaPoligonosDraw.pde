@@ -78,14 +78,8 @@ public void setup() {
 }
 
 public void draw() {
-  println(UMBRAL);
+ //println(UMBRAL);
   update();
-  if(silencio){
-    background(255);
-    silencio = false;
-  } else {
-   background(0); 
-  }
   
   
   
@@ -135,6 +129,8 @@ int disparoPeriodMillis = 5000;
 void update() {
  
   //println(counterVV);
+  acabaDeCallarse = false;
+  boolean terminahablar = false;
   if(counterVV==0){
      currentVol=sumVolume();         
      if( currentVol<UMBRAL){ 
@@ -163,7 +159,7 @@ void update() {
     }
     */
   } else if (modoFuncionamiento == DISPARO) {
-    if(lastDisparoMillis > millis()){
+    if(lastDisparoMillis < millis()){
       modoFuncionamiento = SALVAPANTALLAS;
     }
   } else if(modoFuncionamiento == SALVAPANTALLAS) {

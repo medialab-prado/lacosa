@@ -9,7 +9,7 @@ public class Particle {
     this.vel = vel;
     this.p = p;
     nextChange = millis() + vel;
-  {
+  }
   
   
   public void draw(PGraphics canvas){
@@ -31,7 +31,7 @@ public class Particle {
            if( i == ordenPaneles.length -1){
              died = true;
            }else{
-             p = ordenPaneles[i+1];
+             //p = ordenPaneles[i+1];
              
            }  
        }
