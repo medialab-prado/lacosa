@@ -97,10 +97,10 @@ public void draw() {
     }
   }
   else if (modoFuncionamiento == HABLANDO) {
-    for (int i = 0; i< panelActual;i++)
+    for (int i = 0; i< ordenPaneles.length;i++)
       for (Polygon p : polygons) {
         if ( p.name.equals(ordenPaneles[i])){
-          p.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+          p.c = color( 255,0,0);//map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
           p.draw(g);
         }
       }
@@ -122,6 +122,9 @@ public void draw() {
   rect(10,80,currentVol,20);
   
   }
+  
+  fill(255);
+  text("modoFuncionamiento " + modoFuncionamiento,100,10);
 }
 
 boolean silencio = false;
@@ -169,7 +172,7 @@ void update() {
     }
   }
   
-   println("modoFuncionamiento " + modoFuncionamiento);
+  
 
 }
 
