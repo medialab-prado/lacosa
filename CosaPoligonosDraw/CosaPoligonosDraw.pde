@@ -97,7 +97,8 @@ public void setup() {
 public void draw() {
   //println(UMBRAL);
   update();
-  background(20);
+  if(modoFuncionamiento == HABLANDO)
+    background(20);
 
   if (modoFuncionamiento == DISPARO) {
     for (Polygon p : polygons) {
