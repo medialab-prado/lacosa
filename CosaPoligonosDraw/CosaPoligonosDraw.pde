@@ -251,7 +251,7 @@ void update() {
     if(cambiaahora){
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init(200, currentColorPitch,0);
+      p.init(120, currentColorPitch,0);
       particles.add(p);
       acabaDeCallarse = false;
       lastDisparoMillis = millis() + disparoPeriodMillis; 
