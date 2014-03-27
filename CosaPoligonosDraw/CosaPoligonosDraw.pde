@@ -119,9 +119,9 @@ public void draw() {
     float dif = (volume * 3 - boometro );
     //println(dif);
     if(dif < 0)
-      boometro +=  dif * 0.01;
+      boometro +=  dif * 0.05;
      else
-      boometro +=  dif * 0.04;
+      boometro +=  dif * 0.1;
     
     pitchFollower += (pitch/3 - pitchFollower ) * 0.05;
     
@@ -240,7 +240,7 @@ void update() {
     if(cambiaahora){
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init(700, currentColorPitch,0);
+      p.init(200, currentColorPitch,0);
       particles.add(p);
       acabaDeCallarse = false;
       lastDisparoMillis = millis() + disparoPeriodMillis; 

@@ -24,6 +24,7 @@ public class Particle {
     if (millis() > nextChange) {
       nextPolygon();
       nextChange = millis() + vel;
+      vel-=12;
     }
   }
 
@@ -40,4 +41,3 @@ public class Particle {
      died = true;
   }
 }
-
