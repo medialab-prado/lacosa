@@ -69,6 +69,7 @@ ArrayList particles = new ArrayList();
 
 float boometro = 0;
 float pitchFollower = 0;
+long momentoCambio = 0;
 
 color currentColorPitch = 0;
 
@@ -158,11 +159,20 @@ public void draw() {
     }
   }  
   else if (modoFuncionamiento == SALVAPANTALLAS) {
-    for (Polygon p : polygons) {
-      //p.drawMode = 1;
-      //p.c = color( 200, 200, 200);
-      // p.draw(g);
-    }
+      if(millis() < momentoCambio){
+        for (Polygon p : poligonosOrd) {
+          
+          p.c = color( hue(p.c), saturation(p.c), 30 * (sin(millis() * 0.005) + 1) + 20);
+          p.draw(g);
+        }
+      }
+      else{
+         for (Polygon p : poligonosOrd) {
+          
+          p.c = color(100 * (sin(millis() * 0.001) +1) , 100, 100 );
+          p.draw(g);
+        }
+      }
   }
   ArrayList delpp = new ArrayList();
   for (int i = 0;i<particles.size();i++) {
@@ -257,6 +267,7 @@ void update() {
   else if (modoFuncionamiento == DISPARO) {
     if (lastDisparoMillis < millis()) {
       modoFuncionamiento = SALVAPANTALLAS;
+      momentoCambio = millis() + 5000;
     }
     acabaDeCallarse = false;
   } 
