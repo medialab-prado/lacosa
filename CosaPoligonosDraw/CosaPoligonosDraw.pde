@@ -44,7 +44,7 @@ static int SALVAPANTALLAS = 2;
 float [] volumeValues;
 int counterVV=0;
 static int SAMPLES=4;
-float UMBRAL=0.1;
+float UMBRAL=0.15;
 boolean calladoAhora=false;
 float currentVol=0;
 boolean acabaDeCallarse=false;
@@ -131,7 +131,7 @@ public void draw() {
   
     colorMode(HSB, 100);  
 
-    color currentColorTemp = color( map(pitchFollower, 20, 400, 0, 255),  90, 200);
+    color currentColorTemp = color( map(pitchFollower, 2, 400, 0, 255),  90, 200);
 
     Polygon p = (Polygon)poligonosOrd.get(0);
     p.drawMode = 3;
@@ -162,7 +162,7 @@ public void draw() {
       if(millis() < momentoCambio){
         for (Polygon p : poligonosOrd) {
           p.llenadoCantidad=1;
-          p.c = color( hue(p.c), saturation(p.c), 30 * (sin(millis() * 0.005) + 1) + 20);
+          p.c = color( hue(p.c), saturation(p.c), 20 * (sin(millis() * 0.009) + 1) + 60);
           p.draw(g);
         }
       }

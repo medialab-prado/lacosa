@@ -12,6 +12,7 @@ public class Particle {
     this.vel = vel;
     nextChange = millis() + vel;
     p =  (Polygon) poligonosOrd.get(current);
+    p.c = c;
     this.drawMode = drawMode;
     this.c = c;
   }
