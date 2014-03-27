@@ -50,9 +50,10 @@ float currentVol=0;
 boolean acabaDeCallarse=false;
 int currentColor = 0;
 String[] ordenPaneles = {
-  "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2"
+  "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2",
+  "paredesplanta1", "techoplanta1", "paredesplanta2", "techoplanta2", "techoplanta2"
 };
-ArrayList poligonosOrd = new ArrayList();
+ArrayList<Polygon> poligonosOrd = new ArrayList();
 int panelActual = 0;
 
 OscP5 oscP5;
@@ -187,18 +188,20 @@ public void draw() {
 
   fill(0, 255, 255);
   //Paredes de primera planta
-  rect(0, 190, 800, 150);
+  //rect(0, 190, 800, 150);
   // Techo primera planta
-  rect(731, 322, 100, 100);
+//  rect(731, 322, 100, 100);
 
   // Segunda planta
   fill(255, 255, 0);    
-  rect(783, 203, 500, 150);
-  rect(0, 342, 500, 150);
-  rect(0, 442, 500, 150);
+  //rect(783, 203, 500, 150);
+  //rect(0, 342, 500, 150);
+  //rect(0, 442, 500, 150);
 
   fill(255);
   text("modoFuncionamiento " + modoFuncionamiento, 100, 10);
+  
+  //poligonosOrd.get(poligonosOrd.size()-1).draw(g);
 }
 
 boolean silencio = false;
@@ -354,4 +357,3 @@ float sumVolume() {
   }
   return sumVol/SAMPLES;
 }
-
