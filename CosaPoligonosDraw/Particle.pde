@@ -5,13 +5,15 @@ public class Particle {
   boolean died = false;
   int vel = 500;
   int current = 0;
+  int drawMode = 0;
+  color c;
 
-  public void init( int vel, color c) {
+  public void init( int vel, color c, int drawMode) {
     this.vel = vel;
     nextChange = millis() + vel;
     p =  (Polygon) poligonosOrd.get(current);
-    p.drawMode = (int)random(2);
-    p.c = c;
+    this.drawMode = drawMode;
+    this.c = c;
   }
 
 
@@ -31,8 +33,8 @@ public class Particle {
     
     if(current < poligonosOrd.size()-1){
        p =  (Polygon) poligonosOrd.get(current);
-       p.drawMode = lastP.drawMode;
-       p.c = lastP.c;
+       p.drawMode = drawMode;
+       p.c = c;
        
     }else
      died = true;

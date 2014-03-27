@@ -67,6 +67,9 @@ int modoFuncionamiento = 1;
 ArrayList particles = new ArrayList();
 
 float boometro = 0;
+float pitchFollower = 0;
+
+color currentColorPitch = 0;
 
 public void setup() {
   size(1024, 768, P3D);
@@ -86,7 +89,7 @@ public void setup() {
   // add a horizontal sliders, the value of this slider will be linked
   // to variable 'sliderValue' 
   cp5.addSlider("UMBRAL")
-    .setPosition(100, 50).setSize(300, 30)
+    .setPosition(100, 75).setSize(300, 30)
       .setRange(0, 0.3).setValue(0.03);
 }
 
@@ -112,29 +115,44 @@ public void draw() {
      }
      }*/
 
-    //boometro += (boometro - volume) * 0.8;
-    boometro = volume * 1.3;
-    println(boometro);
+    float dif = (volume * 3 - boometro );
+    //println(dif);
+    if(dif < 0)
+      boometro +=  dif * 0.01;
+     else
+      boometro +=  dif * 0.04;
+    
+    pitchFollower += (pitch/3 - pitchFollower ) * 0.05;
+    
+    //boometro = volume * 1.3;
+  
+    colorMode(HSB, 100);  
+
+    color currentColorTemp = color( map(pitchFollower, 20, 400, 0, 255),  map(boometro, 0.2, 1.0, 0, 255), 200);
 
     Polygon p = (Polygon)poligonosOrd.get(0);
     p.drawMode = 3;
-    p.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+    p.c = currentColorTemp;
     p.llenadoCantidad = boometro * 3.33;
     p.draw(g);
 
     if (boometro > 0.33) {
       Polygon pp = (Polygon)poligonosOrd.get(1);
       pp.drawMode = 3;
-      pp.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+      //pp.c = color( map(pitch, 20, 400, 0, 100),  map(volume, 0.2, 1.0, 0, 100), 50);
+      pp.c = currentColorTemp;
       pp.llenadoCantidad = (boometro-0.33) * 3.33;
       pp.draw(g);
+      
+      currentColorPitch = currentColorTemp;
     }
     if (boometro > 0.66) {
       Polygon pp = (Polygon)poligonosOrd.get(2);
       pp.drawMode = 3;
-      pp.c = color( map(pitch, 20, 800, 0, 255),  map(volume, 0.2, 1.0, 0, 255), 200);
+      pp.c = currentColorTemp;
       pp.llenadoCantidad = (boometro-0.66) * 3.33;
       pp.draw(g);
+      currentColorPitch = currentColorTemp;
     }
   }  
   else if (modoFuncionamiento == SALVAPANTALLAS) {
@@ -159,9 +177,10 @@ public void draw() {
   if (!calladoAhora) {
     stroke(255);
     fill(255, 255, 0);
-    rect(10, 10, volume*width, 20);
+    rect(10, 10, boometro*width, 20);
     fill(255, 0, 255);
-    rect(10, 50, pitch, 20);
+    rect(10, 50, pitchFollower, 20);
+    text(pitchFollower,0, 50);
     fill(0, 255, 255);
     rect(10, 80, currentVol, 20);
   }
@@ -190,7 +209,7 @@ int disparoPeriodMillis = 1000;
 void update() {
 
   //println(counterVV);
-  acabaDeCallarse = false;
+  
 
   boolean empiezahablar = false;
   if (counterVV==0) {
@@ -208,16 +227,20 @@ void update() {
   }
 
   if (modoFuncionamiento == HABLANDO) {
+    boolean cambiaahora = false;
     if (acabaDeCallarse == true) {
+        if(boometro<0.33){
+          cambiaahora = true;
+        }
+    }
+    
+    if(cambiaahora){
       modoFuncionamiento = DISPARO; 
       Particle p = new Particle();
-      p.init(1000, color(255-currentColor, currentColor, 0));
+      p.init(700, currentColorPitch,0);
       particles.add(p);
       acabaDeCallarse = false;
-      lastDisparoMillis = millis() + disparoPeriodMillis;
-    }
-    else {
-      currentColor++;
+      lastDisparoMillis = millis() + disparoPeriodMillis; 
     }
     /*
     if (frameCount % 60 == 0) {
@@ -231,6 +254,7 @@ void update() {
     if (lastDisparoMillis < millis()) {
       modoFuncionamiento = SALVAPANTALLAS;
     }
+    acabaDeCallarse = false;
   } 
 
   else if (modoFuncionamiento == SALVAPANTALLAS) {
@@ -239,6 +263,7 @@ void update() {
       Polygon p = (Polygon)poligonosOrd.get(0);
       p.llenadoCantidad = 0;
     }
+    acabaDeCallarse = false;
   }
 }
 
