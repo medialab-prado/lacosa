@@ -131,7 +131,7 @@ public void draw() {
   
     colorMode(HSB, 100);  
 
-    color currentColorTemp = color( map(pitchFollower, 20, 400, 0, 255),  map(boometro, 0.2, 1.0, 0, 255), 200);
+    color currentColorTemp = color( map(pitchFollower, 20, 400, 0, 255),  90, 200);
 
     Polygon p = (Polygon)poligonosOrd.get(0);
     p.drawMode = 3;
@@ -161,7 +161,7 @@ public void draw() {
   else if (modoFuncionamiento == SALVAPANTALLAS) {
       if(millis() < momentoCambio){
         for (Polygon p : poligonosOrd) {
-          
+          p.llenadoCantidad=1;
           p.c = color( hue(p.c), saturation(p.c), 30 * (sin(millis() * 0.005) + 1) + 20);
           p.draw(g);
         }
@@ -169,7 +169,7 @@ public void draw() {
       else{
          for (Polygon p : poligonosOrd) {
           
-          p.c = color(100 * (sin(millis() * 0.001) +1) , 100, 100 );
+          p.c = color(50 * (sin(millis() * 0.0002) +1) , 80, 100 );
           p.draw(g);
         }
       }
@@ -267,7 +267,7 @@ void update() {
   else if (modoFuncionamiento == DISPARO) {
     if (lastDisparoMillis < millis()) {
       modoFuncionamiento = SALVAPANTALLAS;
-      momentoCambio = millis() + 5000;
+      momentoCambio = millis() + 15000;
     }
     acabaDeCallarse = false;
   } 
