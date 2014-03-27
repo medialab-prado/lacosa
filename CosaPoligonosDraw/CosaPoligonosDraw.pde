@@ -50,7 +50,7 @@ float currentVol=0;
 boolean acabaDeCallarse=false;
 int currentColor = 0;
 String[] ordenPaneles = {
-  "patilla", "morro", "cuello", "panza", "miembro1", "miembro3", "miembro2",
+  "patilla", "morro", "cuello", "panza",
   "paredesplanta1", "techoplanta1", "paredesplanta2", "techoplanta2", "techoplanta2"
 };
 ArrayList<Polygon> poligonosOrd = new ArrayList();
