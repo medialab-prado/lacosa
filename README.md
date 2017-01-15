@@ -26,10 +26,10 @@ http://www.colorkinetics.com/support/vsm/
 Geometría, entendiendo la cosa
 ------
 
-- La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes y techos y suelos en el exterior. Cada uno de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
+La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes y techos y suelos en el exterior. Cada uno de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
 
-- La distribución de los paneles en el espacio no se corresponde con pisos -ya que hay escaleras- aunque en los planos se ha hecho una cierta distribución, de forma que los paneles de las primeras escaleras están asociados al primer piso, los de las segundas al segundo y así (algo  parecido pasa con los paneles de los techos).
+La distribución de los paneles en el espacio no se corresponde con pisos -ya que hay escaleras- aunque en los planos se ha hecho una cierta distribución, de forma que los paneles de las primeras escaleras están asociados al primer piso, los de las segundas al segundo y así (algo  parecido pasa con los paneles de los techos).
 
-- El mapeo de los leds de los paneles en la pantalla están hechos de forma que todos los leds de cada panel pueden ser englobados en un determinado rectángulo de la pantalla
+El mapeo de los leds de los paneles en la pantalla están hechos de forma que todos los leds de cada panel pueden ser englobados en un determinado rectángulo de la pantalla
 
 
