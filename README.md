@@ -35,5 +35,5 @@ El mapeo de la geometría bidimensional de la fuente de video, a la geometría t
 Alcance actual 0.1
 -------
 
-Se permite controlar la iluminación por paneles (35). 
-No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...)
+-Se permite controlar la iluminación por paneles (35). 
+-No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...)
