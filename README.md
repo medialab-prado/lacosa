@@ -22,3 +22,9 @@ http://www.colorkinetics.com/ls/controllers/vsmpro/
 
 Software de configuracin y uso de vsmpro.
 http://www.colorkinetics.com/support/vsm/
+
+Geometría, entendiendo la cosa
+------
+
+ La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes y techos y suelos en el exterior. Cada uno
+de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
