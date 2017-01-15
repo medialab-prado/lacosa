@@ -29,3 +29,5 @@ Geometría, entendiendo la cosa
 La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes, techos y suelos en el exterior. Cada uno de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
 
 El mapeo de la geometría bidimensional de la fuente de video, a la geometría tridimensional con la disposición de los leds en La Cosa, se realiza mediante un fichero de mapeo documentado en los enlaces anteriores. Esta configuracin es editable mediante un software también enlazado anteriormente. 
+
+<img src="https://github.com/edumo/lacosa/blob/master/docs/detalle.jpg"/>
