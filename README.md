@@ -12,19 +12,24 @@ La colocación de tiras Led direccionables situadas entre una doble piel textil 
 
 Se ha indicado que las tiras de leds distrubuidas por las paredes de la cosa son dirreccionables, esto significa que se podra controlar el color de cada pixel por separado, de igual modo que enuna pantalla convencional. Para su control se dispone de una digitalizadora de Phillips que recibe una señal dvi a una resolución de 1024x768, a partir de esta imagen, se van a mapear los ciertos pixels de la matriz de la señal de dvi en los leds distrbuidos.
 
-Icolor
+- Icolor
 Tecnología usada en los soportes leds.
 http://www.colorkinetics.com/ls/rgb/flexmx/
 
-Digitalizadora
+- Digitalizadora
 Dispone de interfaz web para su gestión.
 http://www.colorkinetics.com/ls/controllers/vsmpro/
 
-Software de configuracin y uso de vsmpro.
+- Software de configuracin y uso de vsmpro.
 http://www.colorkinetics.com/support/vsm/
 
 Geometría, entendiendo la cosa
 ------
 
- La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes y techos y suelos en el exterior. Cada uno
-de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
+- La cosa está formada por 35 superficies llamemoslas "paneles", que cubren paredes y techos y suelos en el exterior. Cada uno de los paneles es una superficie plana que está compuesta de varias geometrías (llamemoslas "celdas"). En general las celdas son triángulos o cuadriláteros (ya sean romboides o rectángulos). A su vez, cada celda incluye un cierto número de leds en su perímetro.
+
+- La distribución de los paneles en el espacio no se corresponde con pisos -ya que hay escaleras- aunque en los planos se ha hecho una cierta distribución, de forma que los paneles de las primeras escaleras están asociados al primer piso, los de las segundas al segundo y así (algo  parecido pasa con los paneles de los techos).
+
+- El mapeo de los leds de los paneles en la pantalla están hechos de forma que todos los leds de cada panel pueden ser englobados en un determinado rectángulo de la pantalla
+
+
