@@ -30,4 +30,4 @@ La cosa está formada por 35 superficies llamemoslas "paneles", que cubren pared
 
 El mapeo de la geometría bidimensional de la fuente de video, a la geometría tridimensional con la disposición de los leds en La Cosa, se realiza mediante un fichero de mapeo documentado en los enlaces anteriores. Esta configuracin es editable mediante un software también enlazado anteriormente. 
 
-<img src="https://github.com/edumo/lacosa/blob/master/docs/detalle.jpg"/>
+<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/detalle.jpg"/>
