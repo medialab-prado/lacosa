@@ -11,7 +11,7 @@ La colocación de tiras Led direccionables situadas entre una doble piel textil 
 
 +Documentación gráfica en el portfolio de <a href="http://www.cazurro.com/portfolio/portfolio.php?id=28"> Carlos Cazurro Burgos</a>
 
-Gif del proyecto Simon dice para Un año en un da 2017
+Proyecto "Simon dice Cosa" para Un año en un día 2017
 <img alt="Gif del proyecto Simon dice para Un año en un da 2017" src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_fuera.gif"/>
 
 
@@ -31,6 +31,7 @@ http://www.colorkinetics.com/ls/controllers/vsmpro/
 - Software de configuracin y uso de vsmpro.
 http://www.colorkinetics.com/support/vsm/
 
+Proyecto "Simon dice Cosa" para Un año en un día 2017
 <img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_dentro.gif"/>
 
 Geometría, entendiendo la cosa
@@ -40,6 +41,7 @@ La cosa está formada por 35 superficies llamemoslas "paneles", que cubren pared
 
 El mapeo de la geometría bidimensional de la fuente de video, a la geometría tridimensional con la disposición de los leds en La Cosa, se realiza mediante un fichero de mapeo documentado en los enlaces anteriores. Esta configuracin es editable mediante un software también enlazado anteriormente. 
 
+Planos de Langarita-Navarro
 <img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/detalle.jpg"/>
 
 Alcance actual 0.1
