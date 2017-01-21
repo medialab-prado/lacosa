@@ -25,7 +25,7 @@ http://www.colorkinetics.com/ls/controllers/vsmpro/
 - Software de configuracin y uso de vsmpro.
 http://www.colorkinetics.com/support/vsm/
 
-<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_dentro.jpg"/>
+<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_dentro.gif"/>
 
 Geometría, entendiendo la cosa
 ------
