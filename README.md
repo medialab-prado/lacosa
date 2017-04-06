@@ -49,7 +49,13 @@ Alcance actual 0.1
 
 -Se permite controlar la iluminación por paneles (35). 
 
--No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...)
+-No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...).
 
--Los paneles están numerados y se encuentran agrupados por plantas 
+-Los paneles están numerados y se encuentran agrupados por plantas. 
 
+Alcance actual 0.2
+-------
+
+-Se permite pintar por celdas!!.
+
+-Las celdas son accesibles desde los paneles.
