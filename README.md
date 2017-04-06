@@ -1,5 +1,7 @@
 "La Cosa" Medialab-Prado
 ======
+<img src="http://medialab-prado.es/mmedia/14/14417/500_0.jpg" />
+<img src="http://medialab-prado.es/mmedia/1/1459/350_0.jpg" />
 
 ¿Qué es?
 --------
@@ -7,7 +9,11 @@
 
 La colocación de tiras Led direccionables situadas entre una doble piel textil translúcida, conforman la estructura exterior y el revestimiento interior de "La cosa". En sí mismo forma una pantalla de baja  resolución con una geometría muy distinta de una pantalla convencional. Sus  propiedades estéticas desde  el exterior, y las capacidades inmersivas  en el interior, la hacen un  soporte único. A lo largo de toda la superficie  de paredes y techos en las tres plantas que conecta, se han dispuesto  aproximadamente 6000 leds.
 
-<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/cosa_exterior.jpg"/>
++Documentación gráfica en el portfolio de <a href="http://www.cazurro.com/portfolio/portfolio.php?id=28"> Carlos Cazurro Burgos</a>
+
+Proyecto "Simon dice Cosa" para Un año en un día 2017
+<img alt="Gif del proyecto Simon dice para Un año en un da 2017" src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_fuera.gif"/>
+
 
 ¿Cómo funciona?
 ---------
@@ -25,7 +31,8 @@ http://www.colorkinetics.com/ls/controllers/vsmpro/
 - Software de configuracin y uso de vsmpro.
 http://www.colorkinetics.com/support/vsm/
 
-<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/cosa_interior.jpg"/>
+Proyecto "Simon dice Cosa" para Un año en un día 2017
+<img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/simon_dentro.gif"/>
 
 Geometría, entendiendo la cosa
 ------
@@ -34,6 +41,7 @@ La cosa está formada por 35 superficies llamemoslas "paneles", que cubren pared
 
 El mapeo de la geometría bidimensional de la fuente de video, a la geometría tridimensional con la disposición de los leds en La Cosa, se realiza mediante un fichero de mapeo documentado en los enlaces anteriores. Esta configuracin es editable mediante un software también enlazado anteriormente. 
 
+Planos de Langarita-Navarro
 <img src="https://raw.githubusercontent.com/edumo/lacosa/master/docs/detalle.jpg"/>
 
 Alcance actual 0.1
@@ -41,7 +49,13 @@ Alcance actual 0.1
 
 -Se permite controlar la iluminación por paneles (35). 
 
--No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...)
+-No existe ninguna infraestructura de interfaz de entrada para realizar interacciones (sensores de presencia, micrófonos, ...).
 
--Los paneles están numerados y se encuentran agrupados por plantas 
+-Los paneles están numerados y se encuentran agrupados por plantas. 
 
+Alcance actual 0.2
+-------
+
+-Se permite pintar por celdas!!.
+
+-Las celdas son accesibles desde los paneles.
